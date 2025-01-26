@@ -1,0 +1,14 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.wrapper svg {
+	fill: var(--primary)
+}
+
+.label {
+	margin-right: 8px;
+	font-size: 1.2rem;
+	font-weight: 500;
+}

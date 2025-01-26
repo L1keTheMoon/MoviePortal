@@ -1,0 +1,17 @@
+.form {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.inputs {
+	display: flex;
+	gap: 10px;
+}
