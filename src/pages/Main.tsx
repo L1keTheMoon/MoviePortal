@@ -1,7 +1,11 @@
-import React from 'react'
+import Premieres from '../components/Premieres/Premieres.tsx';
+import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch.tsx';
 
 export default function Main() {
 	return (
-		<div>main</div>
+		<>
+			<Premieres />
+			<AdvancedSearch />
+		</>
 	)
 }

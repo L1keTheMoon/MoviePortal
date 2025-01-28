@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from './components/Header/Header.tsx';
-import Premieres from './components/Premieres/Premieres.tsx';
-import AdvancedSearch from './components/AdvancedSearch/AdvancedSearch.tsx';
 import Footer from './components/Footer/Footer.tsx';
+import { Route, Routes } from 'react-router-dom';
+import Main from './pages/Main.tsx';
+import Authorization from './pages/Authorization.tsx';
+import NotFound from './pages/NotFound.tsx';
 import styles from './App.module.css';
 
 function App() {
@@ -11,8 +13,11 @@ function App() {
 		<>
 			<Header />
 			<div className={styles.container}>
-				<Premieres />
-				<AdvancedSearch />
+				<Routes>
+					<Route path='/' element={<Main />} />
+					<Route path='/authorization' element={<Authorization />} />
+					<Route path='*' element={<NotFound />} />
+				</Routes>
 			</div>
 			<Footer />
 		</>

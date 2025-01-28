@@ -1,37 +1,28 @@
-import React from 'react'
 import { Typography, TextField, Button } from '@mui/material';
 import Select from '../Select/Select.tsx';
-import { FilterParams } from '../../types/types.ts';
+import { years, ratings, types } from '../../constants/index.ts';
 import styles from './SearchForm.module.css';
 
 interface SearchFormProps {
-	handleChange: (event) => void
+	handleChange: (fieldName: string, value: string) => void,
+	resetFilters: () => void,
+	filters: { [key: string]: string }
 }
 
-//Значения для поиска (годы, ретинг и тип)
-const years: FilterParams[] = [];
-for (let i = 2026; i >= 1890; i--) {
-	const strI = String(i);
-	years.push({ id: strI, year: strI });
-}
-const ratings: FilterParams[] = [];
-for (let i = 10; i >= 0; i--) {
-	const strI = String(i);
-	ratings.push({ id: strI, rating: strI });
-}
-const types: FilterParams[] = [{ id: 'FILM', type: 'фильм' }, { id: 'TV_SERIES', type: 'сериал' }];
+export default function SearchForm({ handleChange, resetFilters, filters }: SearchFormProps) {
 
-export default function SearchForm({ handleChange }: SearchFormProps) {
 	return (
 		<form className={styles.form}>
 			<div className={styles.group}>
 				<TextField
-					id="outlined-basic"
 					label="Название фильма или сериала"
+					value={filters.keyword || ''}
 					variant="outlined"
 					size='small'
+					onChange={(event) => handleChange('keyword', event.target.value)}
 				/>
 				<Select
+					value={filters.type}
 					variants={types}
 					variantName='type'
 					handleChange={handleChange}
@@ -40,6 +31,7 @@ export default function SearchForm({ handleChange }: SearchFormProps) {
 					labelMinWidth={80}
 				/>
 				<Select
+					value={filters.countries}
 					variants={ratings}
 					variantName='rating'
 					handleChange={handleChange}
@@ -48,6 +40,7 @@ export default function SearchForm({ handleChange }: SearchFormProps) {
 					labelMinWidth={80}
 				/>
 				<Select
+					value={filters.genres}
 					variants={ratings}
 					variantName='rating'
 					handleChange={handleChange}
@@ -67,22 +60,24 @@ export default function SearchForm({ handleChange }: SearchFormProps) {
 				</Typography>
 				<div className={styles.inputs}>
 					<Select
+						value={filters.yearFrom}
 						variantName='year'
 						variants={years}
 						handleChange={handleChange}
 						name='yearFrom'
 						label='с'
 						labelMinWidth={30}
-						width={80}
+						width={100}
 					/>
 					<Select
+						value={filters.yearTo}
 						variantName='year'
 						variants={years}
 						handleChange={handleChange}
 						name='yearTo'
 						label='по'
 						labelMinWidth={30}
-						width={80}
+						width={100}
 					/>
 				</div>
 			</div>
@@ -97,25 +92,33 @@ export default function SearchForm({ handleChange }: SearchFormProps) {
 				</Typography>
 				<div className={styles.inputs}>
 					<Select
+						value={filters.ratingFrom}
 						variantName='rating'
 						variants={ratings}
 						handleChange={handleChange}
 						name='ratingFrom'
 						label='от'
 						labelMinWidth={30}
-						width={80}
+						width={100}
 					/>
 					<Select
+						value={filters.ratingTo}
 						variantName='rating'
 						variants={ratings}
 						handleChange={handleChange}
 						name='ratingTo'
 						label='до'
 						labelMinWidth={30}
-						width={80}
+						width={100}
 					/>
 				</div>
 			</div>
+			<Button
+				variant='outlined'
+				onClick={resetFilters}
+			>
+				Сбросить фильтры
+			</Button>
 			<Button variant='contained'>Пиоск</Button>
 		</form>
 	)

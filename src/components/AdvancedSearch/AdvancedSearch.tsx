@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, ButtonGroup, Divider, Typography } from '@mui/material';
 import SearchForm from '../SearchForm/SearchForm.tsx';
-import { FilterParams } from '../../types/types.ts';
+import { orderVariants } from '../../constants/index.ts';
 import styles from './AdvancedSearch.module.css';
 
-const orderVariants: FilterParams[] = [{ id: 'NUM_VOTE', order: 'популярности' }, { id: 'RATING', order: 'рейтингу' }, { id: 'YEAR', order: 'дате выхода' }];
-
 export default function AdvancedSearch() {
-	const [filters, setFilters] = useState({ order: 'RATING' });
+	const [filters, setFilters] = useState<{ [key: string]: string }>({ order: 'NUM_VOTE' });
 
-	function handleChange(event) {
-		console.log(event);
-		setFilters({ ...filters, [event.target.name]: event.target.value });
+	function handleChange(fieldName: string, value: string) {
+		setFilters({ ...filters, [fieldName]: value || undefined });
+	}
+	console.log(filters);
+	function resetFilters() {
+		setFilters({ order: 'NUM_VOTE' });
 	}
 
 	return (
 		<>
 			<Typography component="h3" sx={{ fontSize: 32, fontWeight: 700, mt: 5, mb: 2 }}>Расширенный поиск фильмов и сериалов</Typography>
 			<div className={styles['search-field']}>
-				<SearchForm handleChange={handleChange} />
+				<SearchForm filters={filters} handleChange={handleChange} resetFilters={resetFilters} />
 				<Divider orientation="vertical" flexItem />
 				<div>
-					<div style={{ display: 'flex' }}>
+					<div style={{ display: 'flex', alignItems: 'center' }}>
 						<Typography component="h4" sx={{ fontSize: 32, fontWeight: 700 }}>Сортировать по:</Typography>
 						<ButtonGroup
 							variant='outlined'
@@ -34,7 +35,7 @@ export default function AdvancedSearch() {
 										variant={filters.order === e.id ? 'contained' : 'outlined'}
 										name='order'
 										value={e.id}
-										onClick={handleChange}
+										onClick={() => handleChange('order', e.id)}
 									>
 										{e.order}
 									</Button>

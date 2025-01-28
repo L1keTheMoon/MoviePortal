@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Carousel from '../Carousel/Carousel.tsx';
+import CaroulelMovieItem from '../CaroulelMovieItem/CaroulelMovieItem.tsx';
 
 const film = {
-	name: 'Дитя погоды',
-	poster: 'https://avatars.mds.yandex.net/get-kinopoisk-image/10671298/29fba789-ebae-411d-8bec-ab7d62203b89/x1000',
-	rating: 7.9,
+	kinopoiskId: 155,
+	nameRu: 'Дитя погоды',
+	posterUrl: 'https://avatars.mds.yandex.net/get-kinopoisk-image/10671298/29fba789-ebae-411d-8bec-ab7d62203b89/x1000',
+	ratingKinopoisk: 7.9,
 	year: '2019',
 	countries: [
 		{
@@ -38,6 +40,7 @@ export default function Premieres() {
 			list={data}
 			handleClick={handleClick}
 			slide={slide}
+			ListItem={CaroulelMovieItem}
 		/>
 	)
 }

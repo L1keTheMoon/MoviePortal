@@ -22,36 +22,3 @@
 	gap: 30px;
 	transition: right 300ms linear;
 }
-
-.movie {
-	flex-shrink: 0;
-	width: 230px;
-}
-
-.poster {
-	width: 100%;
-	overflow: hidden;
-	border-radius: 8px;
-	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-}
-
-.image {
-	width: 100%;
-	display: block;
-}
-
-.info {
-	height: 28px;
-	font-size: 18px;
-	font-weight: 500;
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-	background-color: var(--background-dark);
-}
-
-.info>div {
-	display: flex;
-	align-items: center;
-	gap: 5px;
-}

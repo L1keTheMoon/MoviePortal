@@ -1,0 +1,7 @@
+.decoration {
+	display: block;
+	background-image: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
