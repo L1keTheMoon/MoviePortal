@@ -18,7 +18,6 @@ export default function SearchForm({ handleChange, resetFilters, filters }: Sear
 					label="Название фильма или сериала"
 					value={filters.keyword || ''}
 					variant="outlined"
-					size='small'
 					onChange={(event) => handleChange('keyword', event.target.value)}
 				/>
 				<Select

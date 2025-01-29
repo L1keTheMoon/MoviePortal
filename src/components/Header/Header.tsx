@@ -1,21 +1,29 @@
-import { useEffect, useState } from 'react';
-import { Button, IconButton, Paper, TextField, Typography } from '@mui/material';
-import { NightsStay, WbSunny, Search } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-import Decoration from '../Decoration/Decoration.tsx';
+import { useContext, useState } from 'react';
+import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material';
+import { NightsStay, WbSunny, Search, AccountCircle } from '@mui/icons-material';
+import { Link, useLocation, useNavigate } from 'react-router';
+import Decoration from '../Decoration/Decoration';
+import { ThemeContext } from '../../context/ThemeContext';
+import { useAppSelector } from '../../hooks/useStore';
 import styles from './Header.module.css';
 
+const iconStyle = { color: 'white', width: 40, height: 40 };
+
 export default function Header() {
-	const [theme, setTheme] = useState<'light' | 'dark'>(matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 	const [search, setSearch] = useState('');
+	const { theme, changeTheme } = useContext(ThemeContext);
+	const user = useAppSelector(state => state.user);
+	const navigate = useNavigate();
+	const location = useLocation();
 
-	useEffect(() => {
-		if (theme === 'dark') document.body.classList.add('dark');
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	const iconSize = { width: 30, height: 30 };
-	const user = false;
+	function handleClick(registration: number) {
+		navigate('/Authorization', {
+			state: {
+				referrer: location.pathname,
+				registration
+			}
+		})
+	}
 
 	return (
 		<header className={styles.header}>
@@ -30,9 +38,9 @@ export default function Header() {
 				</Typography>
 			</Decoration>
 			<Paper
-				sx={{ p: '2px', display: 'flex', alignItems: 'center', width: 300 }}
+				sx={{ p: '2px', display: 'flex', alignItems: 'center', width: 300, borderRadius: 1 }}
 			>
-				<TextField
+				<InputBase
 					value={search}
 					onChange={e => setSearch(e.target.value)}
 					sx={{ ml: 1, flex: 1 }}
@@ -48,19 +56,29 @@ export default function Header() {
 			<IconButton
 				size="small"
 				color="inherit"
-				onClick={() => {
-					setTheme(theme === 'light' ? 'dark' : 'light');
-					document.body.classList.toggle('dark');
-				}}
+				onClick={changeTheme}
 			>
-				{theme === 'light' ? <WbSunny sx={iconSize} /> : <NightsStay sx={iconSize} />}
+				{theme === 'light' ? <WbSunny sx={iconStyle} /> : <NightsStay sx={iconStyle} />}
 			</IconButton>
-			{user ||
+			{user?.isLogin ?
+				<span className={styles.user}>
+					{user.name}
+					<AccountCircle sx={iconStyle} />
+				</span>
+				:
 				<>
-					<Button variant="contained">
+					<Button
+						variant="contained"
+						size='large'
+						onClick={() => handleClick(0)}
+					>
 						Войти
 					</Button>
-					<Button variant="outlined">
+					<Button
+						variant="outlined"
+						size='large'
+						onClick={() => handleClick(1)}
+					>
 						Зарегистрироваться
 					</Button>
 				</>}

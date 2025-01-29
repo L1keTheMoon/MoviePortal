@@ -6,3 +6,10 @@
 	gap: 12px;
 	padding: 0 24px;
 }
+
+.user {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 25px;
+}

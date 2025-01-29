@@ -1,5 +1,5 @@
 .carousel {
-	width: 1530px;
+	width: 100%;
 	margin: 0 auto;
 }
 
@@ -13,12 +13,28 @@
 }
 
 .content {
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .list {
 	position: relative;
-	display: flex;
-	gap: 30px;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc((100% + 20px) / 6);
+	grid-template-columns: repeat(auto-fit, calc((100% + 20px) / 6));
 	transition: right 300ms linear;
+}
+
+@media (max-width: 1200px) {
+	.list {
+		grid-auto-columns: calc((100% + 20px) / 4);
+		grid-template-columns: repeat(auto-fit, calc((100% + 20px) / 4));
+	}
+}
+
+@media (max-width: 600px) {
+	.list {
+		grid-auto-columns: calc((100% + 20px) / 2);
+		grid-template-columns: repeat(auto-fit, calc((100% + 20px) / 2));
+	}
 }

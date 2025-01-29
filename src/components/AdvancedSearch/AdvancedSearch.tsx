@@ -10,15 +10,15 @@ export default function AdvancedSearch() {
 	function handleChange(fieldName: string, value: string) {
 		setFilters({ ...filters, [fieldName]: value || undefined });
 	}
-	console.log(filters);
+
 	function resetFilters() {
-		setFilters({ order: 'NUM_VOTE' });
+		setFilters({ order: filters.order });
 	}
 
 	return (
 		<>
 			<Typography component="h3" sx={{ fontSize: 32, fontWeight: 700, mt: 5, mb: 2 }}>Расширенный поиск фильмов и сериалов</Typography>
-			<div className={styles['search-field']}>
+			<div className={styles.search}>
 				<SearchForm filters={filters} handleChange={handleChange} resetFilters={resetFilters} />
 				<Divider orientation="vertical" flexItem />
 				<div>
@@ -26,7 +26,7 @@ export default function AdvancedSearch() {
 						<Typography component="h4" sx={{ fontSize: 32, fontWeight: 700 }}>Сортировать по:</Typography>
 						<ButtonGroup
 							variant='outlined'
-							sx={{ ml: 4 }}
+							sx={{ ml: 4, mt: 0.5 }}
 						>
 							{orderVariants.map(e => {
 								return (

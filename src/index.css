@@ -7,13 +7,11 @@
 }
 
 a {
-	color: var(--secondary);
-	text-decoration: none;
+	color: var(--fontcolor);
 }
 
 a:hover {
-	color: var(--secondary-hover);
-	;
+	color: var(--secondary);
 }
 
 #root {
@@ -23,8 +21,8 @@ a:hover {
 }
 
 body {
-	--background: #cecece;
-	--background-dark: #525252;
+	--background: #ababab;
+	--background-dark: #4c4c4c;
 	--fontcolor: #000000;
 	--fontcolor-gray: #4B4B4B;
 	--primary: #DF2144;
@@ -34,13 +32,13 @@ body {
 	--gray: #525252;
 	--gray-dark: #4b4b4b;
 	--gray-light: #a7a7a7;
-	--black: #5e5e5e;
+	--black: #2f2f2f;
 	background-color: var(--background);
 	color: var(--fontcolor);
 }
 
 body.dark {
-	--background: #393939;
+	--background: #303030;
 	--background-dark: #1F1F1F;
 	--fontcolor: #e6e6e6;
 	--fontcolor-gray: #9a9a9a;

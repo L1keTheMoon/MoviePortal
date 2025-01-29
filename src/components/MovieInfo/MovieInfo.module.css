@@ -1,0 +1,53 @@
+.container {
+	display: flex;
+	gap: 30px;
+}
+
+.poster {
+	width: 500px;
+}
+
+.wrapper {}
+
+.name {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: -10px;
+}
+
+.name div {
+	width: 10%;
+	aspect-ratio: 1 / 1;
+}
+
+.name svg {
+	height: 100%;
+	width: 100%;
+}
+
+.logo {
+	width: 85%;
+	margin-top: 12px;
+}
+
+.info {
+	margin-top: 16px;
+}
+
+.info th,
+.info td {
+	font-size: 25px;
+	border: none;
+	color: var(--fontcolor);
+	padding: 8px;
+}
+
+.info th {
+	color: var(--fontcolor-gray);
+}
+
+.limit {
+	padding: 5px;
+	border: 2px solid var(--fontcolor);
+}
