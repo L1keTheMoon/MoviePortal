@@ -1,5 +1,6 @@
 .search {
 	min-height: 500px;
+	width: 100%;
 	padding: 16px;
 	display: flex;
 	gap: 20px;

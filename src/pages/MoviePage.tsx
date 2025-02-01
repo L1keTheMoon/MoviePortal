@@ -1,7 +1,8 @@
 import { useParams } from 'react-router';
 import MovieInfo from '../components/MovieInfo/MovieInfo';
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { useGetMovieQuery } from '../api/api';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 export default function MoviePage() {
 	const { id } = useParams();
@@ -9,7 +10,7 @@ export default function MoviePage() {
 
 	return (
 		<>
-			{isError ? <Typography variant='h1'>Ошибка!!!</Typography>
+			{isError ? <ErrorMessage />
 				:
 				isFetching ? <CircularProgress size={300} style={{ display: 'block', margin: '30px auto 0' }} />
 					:

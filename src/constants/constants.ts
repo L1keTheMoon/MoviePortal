@@ -1,4 +1,4 @@
-import { FilterParams } from '../types/types';
+import { FilterParams, SortVariant } from '../types/types';
 
 //Значения для поиска (годы, ретинг, тип и сортировка)
 const years: FilterParams[] = [];
@@ -16,4 +16,9 @@ const types: FilterParams[] = [{ id: 'FILM', type: 'фильм' }, { id: 'TV_SER
 
 const orderVariants: FilterParams[] = [{ id: 'YEAR', order: 'дате выхода' }, { id: 'NUM_VOTE', order: 'популярности' }, { id: 'RATING', order: 'рейтингу' }];
 
-export { years, ratings, types, orderVariants };
+const sortVariants: SortVariant[] = [
+	{ id: 1, name: 'дате выхода', sortFn: (a, b) => Number(b.year) - Number(a.year) },
+	{ id: 2, name: 'алфавиту', sortFn: (a, b) => a.nameRu.localeCompare(b.nameRu) },
+	{ id: 3, name: 'рейтингу', sortFn: (a, b) => Number(b.ratingKinopoisk) - Number(a.ratingKinopoisk) }];
+
+export { years, ratings, types, orderVariants, sortVariants };

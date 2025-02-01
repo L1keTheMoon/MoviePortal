@@ -1,26 +1,28 @@
-import { ChangeEvent } from 'react';
-import { MovieFromSearch } from '../../types/types';
-import { Pagination, Typography } from '@mui/material';
-import { Star } from '@mui/icons-material';
+import { ChangeEvent, HTMLAttributes } from 'react';
+import { MovieShortData } from '../../types/types';
+import { IconButton, Pagination, Typography } from '@mui/material';
+import { Delete, Star } from '@mui/icons-material';
 import { Link } from 'react-router';
 import styles from './MovieList.module.css';
 
-interface MovieListProps {
+interface MovieListProps extends HTMLAttributes<HTMLDivElement> {
 	totalPages: number,
 	page: number,
 	handlePageChange: (event: ChangeEvent<unknown>, value: number) => void,
-	list: MovieFromSearch[]
+	list: MovieShortData[],
+	removeButton?: boolean,
+	handleRemove?: (id: number) => void
 }
 
-export default function MovieList({ totalPages, page, handlePageChange, list }: MovieListProps) {
+export default function MovieList({ totalPages, page, handlePageChange, list, removeButton, handleRemove, ...props }: MovieListProps) {
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} {...props}>
 			<ul className={styles.list}>
 				{list.map(e => {
 					return (
-						<Link to={`/movies/${e.kinopoiskId}`} key={e.kinopoiskId}>
-							<li className={styles.movie}>
+						<li className={styles.item} key={e.kinopoiskId}>
+							<Link to={`/movies/${e.kinopoiskId}`} className={styles.movie}>
 								<div className={styles.container}>
 									<img src={e.posterUrl} alt="poster" />
 								</div>
@@ -66,8 +68,18 @@ export default function MovieList({ totalPages, page, handlePageChange, list }: 
 										{e.genres.map(e => e.genre).join(', ')}
 									</Typography>
 								</div>
-							</li>
-						</Link>
+							</Link>
+							{removeButton &&
+								<IconButton
+									title='Удалить из избранного'
+									sx={{ mt: 1.5 }}
+									onClick={() => { handleRemove(e.kinopoiskId) }}
+								>
+									<Delete
+										fontSize='large'
+									/>
+								</IconButton>}
+						</li>
 					)
 				})}
 			</ul>

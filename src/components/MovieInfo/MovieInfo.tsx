@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { MovieFromFavorites, MovieFull } from '../../types/types';
+import { MovieShortData, MovieFull } from '../../types/types';
 import { IconButton, Rating, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Favorite, Star } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router';
 import { useAppSelector } from '../../hooks/useStore';
-import { addToFavorites } from '../../helpers/favorite';
+import { addToFavorites, removeFromFavorites } from '../../helpers/favorite';
 import styles from './MovieInfo.module.css';
 
 export default function MovieInfo({ nameRu, serial, startYear, endYear, year, kinopoiskId, posterUrl, type, ratingKinopoisk, ratingImdb, countries, genres, nameOriginal, slogan, filmLength, ratingAgeLimits, description, shortDescription }: MovieFull) {
@@ -20,7 +20,7 @@ export default function MovieInfo({ nameRu, serial, startYear, endYear, year, ki
 
 	useEffect(() => {
 		if (user?.isLogin) {
-			setIsFavorite(JSON.parse(localStorage.getItem(user.name + '-Favorites')).find((e: MovieFromFavorites) => e.kinopoiskId === kinopoiskId));
+			setIsFavorite(JSON.parse(localStorage.getItem(user.name + '-Favorites')).find((e: MovieShortData) => e.kinopoiskId === kinopoiskId));
 		}
 	}, [kinopoiskId, user])
 
@@ -33,16 +33,21 @@ export default function MovieInfo({ nameRu, serial, startYear, endYear, year, ki
 				}
 			})
 		} else {
-			setIsFavorite(addToFavorites({
-				kinopoiskId,
-				posterUrl,
-				countries,
-				genres,
-				year,
-				type,
-				name: nameRu || nameOriginal,
-				rating: ratingKinopoisk || ratingImdb,
-			}, user.name));
+			if (isFavorite) {
+				removeFromFavorites(kinopoiskId, user.name);
+			} else {
+				addToFavorites({
+					kinopoiskId,
+					posterUrl,
+					countries,
+					genres,
+					year,
+					type,
+					nameRu: nameRu || nameOriginal,
+					ratingKinopoisk: ratingKinopoisk || ratingImdb,
+				}, user.name);
+			}
+			setIsFavorite((prev) => !prev);
 		}
 	}
 

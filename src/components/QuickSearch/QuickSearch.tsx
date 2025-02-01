@@ -30,6 +30,7 @@ export default function QuickSearch() {
 			options={data?.films || []}
 			getOptionLabel={(option) => value}
 			renderOption={(props, option) => {
+
 				return (
 					<li {...props} style={{ padding: '0' }} key={option.kinopoiskId}>
 						<Link
@@ -38,10 +39,10 @@ export default function QuickSearch() {
 						>
 							<img src={option.posterUrlPreview} alt="poster" />
 							<div>
-								<h6>{option.nameRu || option.nameOriginal}</h6>
+								<h6>{option.nameRu || option.nameEn}</h6>
 								<span className={styles.rating}>
 									<Star />
-									{option.rating || 'Нет оценок'}
+									{option.rating === 'null' ? 'Нет оценок' : option.rating || 'Нет оценок'}
 								</span>
 								<span className={styles.year}>
 									{(option.type === 'FILM' ? 'фильм, ' : 'сериал, ') + option.year}
@@ -56,7 +57,7 @@ export default function QuickSearch() {
 				return (
 					<TextField
 						{...params}
-						placeholder='Поиск'
+						placeholder='Быстрый поиск'
 						slotProps={{
 							input: {
 								...params.InputProps,

@@ -40,41 +40,30 @@ export interface MovieFull {
 export interface MovieSearchRequest {
 	total: number,
 	totalPages: number,
-	items: MovieFromSearch[]
+	items: MovieShortData[]
 }
 
 export interface MovieQuickSearchRequest {
 	keyword: string,
 	pagesCount: number,
-	films: MovieFromSearch[]
+	films: MovieShortData[]
 }
 
-export interface MovieFromSearch {
+export interface MovieShortData {
 	kinopoiskId: number
 	filmId?: number
 	nameRu: string
-	nameEn: string
-	nameOriginal: string
+	nameEn?: string
+	nameOriginal?: string
 	countries: Country[]
 	genres: Genre[]
-	rating?: number | null
 	ratingKinopoisk: number | null
-	ratingImdb: number | null
-	year: string | number
+	ratingImdb?: number | null
+	rating?: number | string
+	year: number | string
 	type: string
 	posterUrl: string
-	posterUrlPreview: string
-}
-
-export interface MovieFromFavorites {
-	kinopoiskId: number
-	name: string
-	rating: number
-	year: string | number
-	type: string
-	countries: Country[]
-	genres: Genre[]
-	posterUrl: string
+	posterUrlPreview?: string
 }
 
 export interface Country {
@@ -105,4 +94,10 @@ export interface FilterParams {
 	order?: string
 	year?: number
 	rating?: number
+}
+
+export interface SortVariant {
+	id: number
+	name: string
+	sortFn: (a: MovieShortData, b: MovieShortData) => number
 }

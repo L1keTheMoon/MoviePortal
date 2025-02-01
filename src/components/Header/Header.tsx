@@ -1,15 +1,15 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { Button, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { NightsStay, WbSunny, AccountCircle, Favorite, Logout } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router';
 import Decoration from '../Decoration/Decoration';
 import { ThemeContext } from '../../context/ThemeContext';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { logOut, logIn } from '../../store/userSlice';
+import { logOut } from '../../store/userSlice';
 import QuickSearch from '../QuickSearch/QuickSearch';
 import styles from './Header.module.css';
 
-const iconStyle = { color: 'white', width: 40, height: 40 };
+const iconStyle = { color: 'white', width: 50, height: 50 };
 
 export default function Header() {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -19,12 +19,6 @@ export default function Header() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
-
-	useEffect(() => {
-		dispatch(logIn({ login: 'qwerty123', password: 'qwerty123' }));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
 
 	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -93,7 +87,7 @@ export default function Header() {
 							vertical: 'top',
 							horizontal: 'right',
 						}}
-						id="basic-menu"
+						id="menu"
 						anchorEl={anchorEl}
 						open={menuOpen}
 						onClose={handleClose}

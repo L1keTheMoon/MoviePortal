@@ -5,20 +5,24 @@
 }
 
 .list {
-	margin: 20px 0;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	margin: 8px auto 20px;
 }
 
 .list a {
 	text-decoration: none;
 }
 
+.item {
+	display: flex;
+	align-items: flex-start;
+}
+
 .movie {
 	border-radius: 8px;
 	width: 100%;
-	padding: 20px;
+	padding: 12px;
 	display: flex;
 	gap: 24px;
 }
@@ -39,6 +43,15 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	flex: 1 1 auto;
+}
+
+.info div {
+	display: flex;
+}
+
+.info button {
+	margin-left: auto;
 }
 
 .rating {

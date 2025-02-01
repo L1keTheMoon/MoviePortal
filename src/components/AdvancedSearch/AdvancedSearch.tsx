@@ -1,12 +1,13 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Button, ButtonGroup, CircularProgress, Divider, Typography } from '@mui/material';
 import { Filters } from '../Filters/Filters';
-import { orderVariants } from '../../constants/index';
+import { orderVariants } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { setFilters, resetFilters } from '../../store/filtersSlice';
 import { changePage } from '../../store/pageSlice';
 import MovieList from '../MovieList/MovieList';
 import { useGetMoviesQuery } from '../../api/api';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import styles from './AdvancedSearch.module.css';
 
 export default function AdvancedSearch() {
@@ -34,14 +35,6 @@ export default function AdvancedSearch() {
 		dispatch(changePage(value));
 	};
 
-	// const handleFiltersChange = useCallback((key: string, value: string | number) => {
-	// 	dispatch(setFilters({ key, value }));
-	// 	if (key === 'order') {
-	// 		console.log(filters);
-	// 	}
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [dispatch]);
-
 	const handleFiltersChange = useCallback((key: string, value: string | number) => {
 		dispatch(setFilters({ key, value }));
 		if (key === 'order') {
@@ -58,7 +51,7 @@ export default function AdvancedSearch() {
 
 	return (
 		<>
-			<Typography component="h2" sx={{ fontSize: 48, fontWeight: 700, mt: 4, mb: 1, textAlign: 'center' }}>Расширенный поиск</Typography>
+			<Typography component="h2" sx={{ fontSize: 48, fontWeight: 700, mb: 1 }}>Расширенный поиск</Typography>
 			<div className={styles.search}>
 				<Filters filters={filters} handleChange={handleFiltersChange} search={search} resetFilters={() => dispatch(resetFilters(''))} />
 				<Divider orientation="vertical" flexItem />
@@ -84,7 +77,7 @@ export default function AdvancedSearch() {
 							})}
 						</ButtonGroup>
 					</div>
-					{isError ? <Typography variant='h1'>Ошибка!!!</Typography>
+					{isError ? <ErrorMessage />
 						:
 						isFetching ? <CircularProgress size={300} style={{ display: 'block', margin: '30px auto 0' }} />
 							:
