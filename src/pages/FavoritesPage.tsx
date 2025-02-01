@@ -15,7 +15,7 @@ export default function FavoritesPage() {
 	const [sort, setSort] = useState<SortVariant>(sortVariants[1]);
 	const [list, setList] = useState<MovieShortData[]>(JSON.parse(localStorage.getItem(user?.name + '-Favorites')));
 	const navigator = useNavigate();
-	console.log('USER:', user);
+
 	useEffect(() => {
 		if (!user?.isLogin) navigator('/Authorization');
 		// eslint-disable-next-line react-hooks/exhaustive-deps

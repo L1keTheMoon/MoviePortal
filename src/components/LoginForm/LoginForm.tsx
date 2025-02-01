@@ -33,7 +33,6 @@ export default function LoginForm({ register = false, authorizationHandler }: Lo
 	}
 
 	function handleEnter(event: KeyboardEvent<HTMLDivElement>) {
-		console.log(event);
 		if (event.key === 'Enter') validate();
 	}
 
