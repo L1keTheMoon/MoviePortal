@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/MoviePortal/static/css/main.35fa476c.css",
+    "main.js": "/MoviePortal/static/js/main.a124f625.js",
+    "static/css/416.10ee652a.chunk.css": "/MoviePortal/static/css/416.10ee652a.chunk.css",
+    "static/js/416.478e6558.chunk.js": "/MoviePortal/static/js/416.478e6558.chunk.js",
+    "static/css/877.294f2133.chunk.css": "/MoviePortal/static/css/877.294f2133.chunk.css",
+    "static/js/877.0f4f3cb7.chunk.js": "/MoviePortal/static/js/877.0f4f3cb7.chunk.js",
+    "static/js/139.d58f4c4f.chunk.js": "/MoviePortal/static/js/139.d58f4c4f.chunk.js",
+    "static/css/358.a9ab9eb1.chunk.css": "/MoviePortal/static/css/358.a9ab9eb1.chunk.css",
+    "static/js/358.4c140ca4.chunk.js": "/MoviePortal/static/js/358.4c140ca4.chunk.js",
+    "static/css/165.7cdccac5.chunk.css": "/MoviePortal/static/css/165.7cdccac5.chunk.css",
+    "static/js/165.23e1afb3.chunk.js": "/MoviePortal/static/js/165.23e1afb3.chunk.js",
+    "static/js/781.6b203cc7.chunk.js": "/MoviePortal/static/js/781.6b203cc7.chunk.js",
+    "static/js/256.3d1ad79e.chunk.js": "/MoviePortal/static/js/256.3d1ad79e.chunk.js",
+    "static/js/363.79647f30.chunk.js": "/MoviePortal/static/js/363.79647f30.chunk.js",
+    "index.html": "/MoviePortal/index.html",
+    "main.35fa476c.css.map": "/MoviePortal/static/css/main.35fa476c.css.map",
+    "main.a124f625.js.map": "/MoviePortal/static/js/main.a124f625.js.map",
+    "416.10ee652a.chunk.css.map": "/MoviePortal/static/css/416.10ee652a.chunk.css.map",
+    "416.478e6558.chunk.js.map": "/MoviePortal/static/js/416.478e6558.chunk.js.map",
+    "877.294f2133.chunk.css.map": "/MoviePortal/static/css/877.294f2133.chunk.css.map",
+    "877.0f4f3cb7.chunk.js.map": "/MoviePortal/static/js/877.0f4f3cb7.chunk.js.map",
+    "139.d58f4c4f.chunk.js.map": "/MoviePortal/static/js/139.d58f4c4f.chunk.js.map",
+    "358.a9ab9eb1.chunk.css.map": "/MoviePortal/static/css/358.a9ab9eb1.chunk.css.map",
+    "358.4c140ca4.chunk.js.map": "/MoviePortal/static/js/358.4c140ca4.chunk.js.map",
+    "165.7cdccac5.chunk.css.map": "/MoviePortal/static/css/165.7cdccac5.chunk.css.map",
+    "165.23e1afb3.chunk.js.map": "/MoviePortal/static/js/165.23e1afb3.chunk.js.map",
+    "781.6b203cc7.chunk.js.map": "/MoviePortal/static/js/781.6b203cc7.chunk.js.map",
+    "256.3d1ad79e.chunk.js.map": "/MoviePortal/static/js/256.3d1ad79e.chunk.js.map",
+    "363.79647f30.chunk.js.map": "/MoviePortal/static/js/363.79647f30.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35fa476c.css",
+    "static/js/main.a124f625.js"
+  ]
+}
