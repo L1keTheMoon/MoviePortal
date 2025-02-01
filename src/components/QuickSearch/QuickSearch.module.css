@@ -1,0 +1,39 @@
+.link {
+	display: flex;
+	font-size: 20px;
+	padding: 8px 4px;
+	text-decoration: none;
+	width: 100%;
+}
+
+.link:hover {
+	background-color: var(--background-dark);
+}
+
+.link img {
+	width: 80px;
+	margin-right: 8px;
+}
+
+.link div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.link h6 {
+	font-size: 20px;
+	text-decoration: underline;
+	line-height: 28px;
+}
+
+.rating {
+	color: var(--yellow);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.year {
+	color: var(--fontcolor-gray);
+}

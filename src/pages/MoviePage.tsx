@@ -1,27 +1,19 @@
 import { useParams } from 'react-router';
-import { MovieFull } from '../types/types';
 import MovieInfo from '../components/MovieInfo/MovieInfo';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
+import { useGetMovieQuery } from '../api/api';
 
-export default function MoviePage(movie: MovieFull) {
-	//const { id } = useParams();
+export default function MoviePage() {
+	const { id } = useParams();
+	const { data, isFetching, isError } = useGetMovieQuery(id);
 
 	return (
-		<div>
-			<MovieInfo {...movie} />
-			<Typography
-				variant='h3'
-				component='h2'
-				sx={{ mt: 2, mb: 1, fontWeight: 500 }}
-			>
-				Сюжет:
-			</Typography>
-			<Typography
-				component='p'
-				fontSize={20}
-			>
-				{movie.description + ' ' + movie.shortDescription}
-			</Typography>
-		</div>
+		<>
+			{isError ? <Typography variant='h1'>Ошибка!!!</Typography>
+				:
+				isFetching ? <CircularProgress size={300} style={{ display: 'block', margin: '30px auto 0' }} />
+					:
+					data ? <MovieInfo {...data} /> : null}
+		</>
 	)
 }

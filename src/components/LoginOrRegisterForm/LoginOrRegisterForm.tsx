@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import PasswordInput from '../PasswordInput/PasswordInput';
 import { useLocation, useNavigate } from 'react-router';
 import { ActionCreatorWithOptionalPayload } from '@reduxjs/toolkit';
 import { UserData } from '../../types/types';
-import { useAppSelector, useAppDispatch } from '../../hooks/useStore';
+import { useAppDispatch } from '../../hooks/useStore';
 import styles from './LoginOrRegisterForm.module.css';
 
 const defaultErrorState = { status: false, text: '' };

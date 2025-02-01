@@ -1,0 +1,49 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.list {
+	margin: 20px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.list a {
+	text-decoration: none;
+}
+
+.movie {
+	border-radius: 8px;
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	gap: 24px;
+}
+
+.movie:hover {
+	background-color: var(--gray-dark);
+}
+
+.container {
+	flex: 0 0 20%;
+}
+
+.container>img {
+	width: 100%;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.rating {
+	display: flex;
+	align-items: center;
+	font-size: 36px;
+	color: var(--yellow);
+}

@@ -3,11 +3,17 @@
 	gap: 30px;
 }
 
-.poster {
-	width: 500px;
+.poster-wrapper {
+	flex: 1 1 500px
 }
 
-.wrapper {}
+.poster {
+	width: 100%;
+}
+
+.info-wrapper {
+	flex: 1 2 1040px;
+}
 
 .name {
 	display: flex;
@@ -18,7 +24,8 @@
 
 .name div {
 	width: 10%;
-	aspect-ratio: 1 / 1;
+	margin-left: auto;
+	margin-bottom: auto;
 }
 
 .name svg {
@@ -28,22 +35,17 @@
 
 .logo {
 	width: 85%;
-	margin-top: 12px;
 }
 
-.info {
-	margin-top: 16px;
-}
-
-.info th,
-.info td {
+.info-wrapper th,
+.info-wrapper td {
 	font-size: 25px;
 	border: none;
 	color: var(--fontcolor);
 	padding: 8px;
 }
 
-.info th {
+.info-wrapper th {
 	color: var(--fontcolor-gray);
 }
 

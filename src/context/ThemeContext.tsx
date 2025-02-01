@@ -58,7 +58,7 @@ function ThemeContextProvider({ children }) {
 	function changeTheme() {
 		setTheme(theme === 'dark' ? 'light' : 'dark');
 	}
-	console.log(materialTheme);
+
 	return (
 		<ThemeContext.Provider value={{ theme, changeTheme }}>
 			<ThemeProvider theme={materialTheme}>

@@ -4,12 +4,12 @@ import { FilterParams } from '../types/types';
 const years: FilterParams[] = [];
 for (let i = 2026; i >= 1890; i--) {
 	const strI = String(i);
-	years.push({ id: strI, year: strI });
+	years.push({ id: strI, year: i });
 }
 const ratings: FilterParams[] = [];
 for (let i = 10; i >= 0; i--) {
 	const strI = String(i);
-	ratings.push({ id: strI, rating: strI });
+	ratings.push({ id: strI, rating: i });
 }
 
 const types: FilterParams[] = [{ id: 'FILM', type: 'фильм' }, { id: 'TV_SERIES', type: 'сериал' }];

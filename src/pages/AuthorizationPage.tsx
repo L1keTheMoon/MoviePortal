@@ -2,15 +2,19 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { Box, Tabs, Tab } from '@mui/material';
 import TabPanel from '../components/TabPanel/TabPanel';
 import LoginOrRegisterForm from '../components/LoginOrRegisterForm/LoginOrRegisterForm';
-import { useLocation } from 'react-router';
-import { createUser, logIn } from '../store/store';
+import { useLocation, useNavigate } from 'react-router';
+import { createUser, logIn } from '../store/userSlice';
+import { useAppSelector } from '../hooks/useStore';
 
 export default function AuthorizationPage() {
 	const [value, setValue] = useState(0);
+	const user = useAppSelector(state => state.user);
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setValue(location.state?.registration || 0);
+		if (user?.isLogin) navigate('/');
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

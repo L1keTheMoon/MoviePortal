@@ -1,18 +1,30 @@
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { MovieFromFavorites, MovieFull } from '../../types/types';
 import { IconButton, Rating, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Favorite, Star } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router';
 import { useAppSelector } from '../../hooks/useStore';
+import { addToFavorites } from '../../helpers/favorite';
 import styles from './MovieInfo.module.css';
 
-export default function MovieInfo(movie: MovieFull) {
+export default function MovieInfo({ nameRu, serial, startYear, endYear, year, kinopoiskId, posterUrl, type, ratingKinopoisk, ratingImdb, countries, genres, nameOriginal, slogan, filmLength, ratingAgeLimits, description, shortDescription }: MovieFull) {
 	const user = useAppSelector(state => state.user);
-	const iconRef = useRef(null);
+	const [isFavorite, setIsFavorite] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	function addToFavorites() {
+	useEffect(() => {
+		document.title = `${nameRu} (${serial ? (startYear + ' – ' + endYear) : year})`;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [kinopoiskId]);
+
+	useEffect(() => {
+		if (user?.isLogin) {
+			setIsFavorite(JSON.parse(localStorage.getItem(user.name + '-Favorites')).find((e: MovieFromFavorites) => e.kinopoiskId === kinopoiskId));
+		}
+	}, [kinopoiskId, user])
+
+	function handleClick() {
 		if (!user?.isLogin) {
 			navigate('/Authorization', {
 				state: {
@@ -21,80 +33,71 @@ export default function MovieInfo(movie: MovieFull) {
 				}
 			})
 		} else {
-			const favorites: MovieFromFavorites[] = JSON.parse(localStorage.getItem(user.name + '-Favorites'));
-			let newFavorites: MovieFromFavorites[];
-			if (favorites.find(e => e.kinopoiskId === movie.kinopoiskId)) {
-				newFavorites = favorites.filter(e => e.kinopoiskId !== movie.kinopoiskId);
-				iconRef.current.style.fill = 'var(--background-dark)';
-			} else {
-				newFavorites = [...favorites, { kinopoiskId: movie.kinopoiskId }];
-				iconRef.current.style.fill = 'var(--primary)';
-			}
-			localStorage.setItem(user.name + '-Favorites', JSON.stringify(newFavorites));
+			setIsFavorite(addToFavorites({
+				kinopoiskId,
+				posterUrl,
+				countries,
+				genres,
+				year,
+				type,
+				name: nameRu || nameOriginal,
+				rating: ratingKinopoisk || ratingImdb,
+			}, user.name));
 		}
 	}
 
 	return (
-		<div className={styles.container}>
-			<div>
-				<img className={styles.poster} src={movie.posterUrl} alt="poster" />
-			</div>
-			<div className={styles.wrapper}>
-				<div className={styles.name}>
-					{Boolean(movie.logoUrl) === false ?
+		<>
+			<div className={styles.container}>
+				<div className={styles['poster-wrapper']}>
+					<img className={styles.poster} src={posterUrl} alt="poster" />
+				</div>
+				<div className={styles['info-wrapper']}>
+					<div className={styles.name}>
 						<Typography
 							variant='h1'
 							sx={{ fontWeight: 500, fontSize: 80 }}
 							style={{ maxWidth: '90%' }}
 						>
-							{movie.nameRu}
+							{nameRu || nameOriginal}
 						</Typography>
-						:
-						<img className={styles.logo} src={movie.logoUrl} alt="logo" />}
-					<div>
-						<IconButton
-							title='Добавить в избранное'
-							color="primary"
-							onClick={addToFavorites}
-						>
-							<Favorite
-								ref={iconRef}
-								style={{
-									color: (
-										user && JSON.parse(localStorage.getItem(user?.name + '-Favorites')).find((e: MovieFromFavorites) => {
-											return e.kinopoiskId === movie.kinopoiskId;
-										}) ? 'var(--primary)' : 'var(--background-dark)'
-									)
-								}} />
-						</IconButton>
+						<div>
+							<IconButton
+								title='Добавить в избранное'
+								color="primary"
+								onClick={handleClick}
+							>
+								<Favorite
+									style={{ color: isFavorite ? 'var(--primary)' : 'var(--background-dark)' }}
+								/>
+							</IconButton>
+						</div>
 					</div>
-				</div>
-				<div className={styles.info}>
-					<TableContainer>
+					<TableContainer sx={{ mt: 2 }}>
 						<Table sx={{ minWidth: 650 }}>
 							<TableBody>
 								<TableRow>
 									<TableCell component="th" scope="row">
-										{'Рейтинг ' + (movie.type === 'FILM' ? 'фильма' : 'сериала')}
+										{'Рейтинг ' + (type === 'FILM' ? 'фильма' : 'сериала')}
 									</TableCell>
 									<TableCell align="left" style={{ display: 'flex', alignItems: 'center' }}>
-										<Rating defaultValue={movie.ratingKinopoisk}
+										<Rating defaultValue={ratingKinopoisk || ratingImdb}
 											max={10}
 											precision={0.1}
 											size="large"
 											readOnly
-											emptyIcon={<Star style={{ fill: 'var(--gray-dark)' }} fontSize="inherit" />}
+											emptyIcon={<Star fontSize="inherit" />}
 											style={{ marginRight: '5px' }}
 										/>
-										{`(${movie.ratingKinopoisk}/10)`}
+										{ratingKinopoisk || ratingImdb ? `(${ratingKinopoisk || ratingImdb}/10)` : '(Нет оценок)'}
 									</TableCell>
 								</TableRow>
 								<TableRow>
 									<TableCell component="th" scope="row">
-										{movie.type === 'FILM' ? 'Год выхода' : 'Период трансляции'}
+										{type === 'FILM' ? 'Год выхода' : 'Период трансляции'}
 									</TableCell>
 									<TableCell align="left">
-										{movie.type === 'FILM' ? movie.year : `(${movie.startYear} – ${movie.endYear})`}
+										{type === 'FILM' ? year : `(${startYear} – ${endYear})`}
 									</TableCell>
 								</TableRow>
 								<TableRow>
@@ -102,7 +105,7 @@ export default function MovieInfo(movie: MovieFull) {
 										Страна
 									</TableCell>
 									<TableCell align="left">
-										{movie.countries.map(e => e.country).join(', ')}
+										{countries.map(e => e.country).join(', ')}
 									</TableCell>
 								</TableRow>
 								<TableRow>
@@ -110,31 +113,39 @@ export default function MovieInfo(movie: MovieFull) {
 										Жанр
 									</TableCell>
 									<TableCell align="left">
-										{movie.genres.map(e => e.genre).join(', ')}
+										{genres.map(e => e.genre).join(', ')}
 									</TableCell>
+								</TableRow>
+								{nameOriginal &&
+									<>
+										<TableRow>
+											<TableCell component="th" scope="row">
+												Оригинальное название
+											</TableCell>
+											<TableCell align="left">
+												{nameOriginal}
+											</TableCell>
+										</TableRow>
+									</>
+								}
+								<TableRow>
+									{slogan &&
+										<>
+											<TableCell component="th" scope="row">
+												Слоган
+											</TableCell>
+											<TableCell align="left">
+												{slogan}
+											</TableCell>
+										</>
+									}
 								</TableRow>
 								<TableRow>
 									<TableCell component="th" scope="row">
-										Оригинальное название
+										{'Длительность' + (type === 'FILM' ? '' : ' серии')}
 									</TableCell>
 									<TableCell align="left">
-										{movie.nameOriginal}
-									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell component="th" scope="row">
-										Слоган
-									</TableCell>
-									<TableCell align="left">
-										{movie.slogan}
-									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell component="th" scope="row">
-										{movie.type === 'FILM' ? 'Длительность' : 'Время серии'}
-									</TableCell>
-									<TableCell align="left">
-										{`${Math.floor(movie.filmLength / 60)} ч. ${movie.filmLength % 60 !== 0 ? movie.filmLength % 60 + ' мин.' : ''}`}
+										{`${filmLength >= 60 ? Math.floor(filmLength / 60) + 'ч.' : ''} ${filmLength % 60 !== 0 ? filmLength % 60 + ' мин.' : ''}`}
 									</TableCell>
 								</TableRow>
 								<TableRow>
@@ -142,14 +153,29 @@ export default function MovieInfo(movie: MovieFull) {
 										Возрастной рейтинг
 									</TableCell>
 									<TableCell align="left">
-										<span className={styles.limit}>{movie.ratingAgeLimits.slice(3) + '+'}</span>
+										<span className={styles.limit}>
+											{ratingAgeLimits ? ratingAgeLimits.slice(3) + '+' : 'Неизвестен'}
+										</span>
 									</TableCell>
 								</TableRow>
 							</TableBody>
 						</Table>
 					</TableContainer>
-				</div>
+				</div >
 			</div >
-		</div >
+			<Typography
+				variant='h3'
+				component='h2'
+				sx={{ mt: 2, mb: 1, fontWeight: 500 }}
+			>
+				Сюжет:
+			</Typography>
+			<Typography
+				component='p'
+				fontSize={20}
+			>
+				{description + ' ' + shortDescription}
+			</Typography>
+		</>
 	)
 }

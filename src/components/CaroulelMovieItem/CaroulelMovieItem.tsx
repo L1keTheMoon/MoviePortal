@@ -15,7 +15,7 @@ export default function CaroulelMovieItem({ kinopoiskId, nameRu, countries, genr
 	return (
 		<li className={styles.movie} ref={ref}>
 			<div className={styles.poster}>
-				<Link to={'/movie/' + kinopoiskId}>
+				<Link to={'/movies/' + kinopoiskId}>
 					<img className={styles.image} src={posterUrl} alt="poster" />
 				</Link>
 				<div className={styles.info}>
@@ -23,7 +23,7 @@ export default function CaroulelMovieItem({ kinopoiskId, nameRu, countries, genr
 					<div><CalendarMonth sx={{ color: '#FFD600' }} />{year}</div>
 				</div>
 			</div>
-			<Link to={'/movie/' + kinopoiskId}>
+			<Link to={'/movies/' + kinopoiskId}>
 				<Typography
 					variant="h5"
 					component="h5"

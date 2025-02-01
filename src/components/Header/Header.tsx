@@ -1,20 +1,38 @@
-import { useContext, useState } from 'react';
-import { Button, IconButton, InputBase, Paper, Typography } from '@mui/material';
-import { NightsStay, WbSunny, Search, AccountCircle } from '@mui/icons-material';
+import { useContext, useState, useEffect } from 'react';
+import { Button, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { NightsStay, WbSunny, AccountCircle, Favorite, Logout } from '@mui/icons-material';
 import { Link, useLocation, useNavigate } from 'react-router';
 import Decoration from '../Decoration/Decoration';
 import { ThemeContext } from '../../context/ThemeContext';
-import { useAppSelector } from '../../hooks/useStore';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
+import { logOut, logIn } from '../../store/userSlice';
+import QuickSearch from '../QuickSearch/QuickSearch';
 import styles from './Header.module.css';
 
 const iconStyle = { color: 'white', width: 40, height: 40 };
 
 export default function Header() {
-	const [search, setSearch] = useState('');
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const menuOpen = Boolean(anchorEl);
 	const { theme, changeTheme } = useContext(ThemeContext);
 	const user = useAppSelector(state => state.user);
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	useEffect(() => {
+		dispatch(logIn({ login: 'qwerty123', password: 'qwerty123' }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+
+	const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	function handleClick(registration: number) {
 		navigate('/Authorization', {
@@ -37,22 +55,7 @@ export default function Header() {
 					<Link to='/'>MoviePortal</Link>
 				</Typography>
 			</Decoration>
-			<Paper
-				sx={{ p: '2px', display: 'flex', alignItems: 'center', width: 300, borderRadius: 1 }}
-			>
-				<InputBase
-					value={search}
-					onChange={e => setSearch(e.target.value)}
-					sx={{ ml: 1, flex: 1 }}
-					placeholder='Поиск...'
-				/>
-				<IconButton
-					type="button"
-					aria-label="search"
-				>
-					<Search />
-				</IconButton>
-			</Paper>
+			<QuickSearch />
 			<IconButton
 				size="small"
 				color="inherit"
@@ -60,11 +63,53 @@ export default function Header() {
 			>
 				{theme === 'light' ? <WbSunny sx={iconStyle} /> : <NightsStay sx={iconStyle} />}
 			</IconButton>
+			<Button
+				variant="outlined"
+				size='large'
+				onClick={() => {
+					if (user?.isLogin) {
+						navigate('/favorites');
+					} else {
+						handleClick(0);
+					}
+				}
+				}
+			>
+				Избранное
+			</Button>
 			{user?.isLogin ?
-				<span className={styles.user}>
-					{user.name}
-					<AccountCircle sx={iconStyle} />
-				</span>
+				<div>
+					<span className={styles.user} onClick={handleOpen}>
+						{user.name}
+						<AccountCircle sx={iconStyle} />
+					</span>
+					<Menu
+						MenuListProps={{ sx: { width: 200 } }}
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'right',
+						}}
+						id="basic-menu"
+						anchorEl={anchorEl}
+						open={menuOpen}
+						onClose={handleClose}
+					>
+						<MenuItem onClick={() => {
+							navigate('/favorites');
+							handleClose();
+						}}>
+							Избранное<Favorite sx={{ marginLeft: 'auto' }} />
+						</MenuItem>
+						<MenuItem onClick={() => {
+							dispatch(logOut());
+							handleClose();
+						}}>Выйти<Logout sx={{ marginLeft: 'auto' }} /></MenuItem>
+					</Menu>
+				</div>
 				:
 				<>
 					<Button

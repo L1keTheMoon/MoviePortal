@@ -1,10 +1,6 @@
 .search {
 	min-height: 500px;
-	background-color: var(--gray-light);
-	border-radius: 8px;
 	padding: 16px;
 	display: flex;
 	gap: 20px;
 }
-
-.results {}
