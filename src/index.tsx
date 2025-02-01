@@ -9,7 +9,7 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<ThemeContextProvider>
-		<BrowserRouter>
+		<BrowserRouter basename='/MoviePortal'>
 			<Provider store={store}>
 				<App />
 			</Provider>
