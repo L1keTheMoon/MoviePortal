@@ -1,4 +1,4 @@
-import { RefObject, useState } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, RefObject, useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { InputAdornment, IconButton, TextField } from '@mui/material';
 
@@ -8,12 +8,13 @@ interface PasswordInputProps {
 	helperText: string
 	lable: string,
 	id: string,
-	onChange: () => void
+	onChange: ChangeEventHandler<HTMLInputElement>,
+	onKeyDown: KeyboardEventHandler<HTMLDivElement>
 }
 
 const iconStyle = { color: 'var(--fontcolor)' };
 
-export default function PasswordInput({ ref, error, helperText, lable, id, onChange }: PasswordInputProps) {
+export default function PasswordInput({ ref, error, helperText, lable, id, onChange, onKeyDown }: PasswordInputProps) {
 	const [showPassword, setShowPassword] = useState(false);
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -32,6 +33,7 @@ export default function PasswordInput({ ref, error, helperText, lable, id, onCha
 			name='user'
 			variant="outlined"
 			onChange={onChange}
+			onKeyDown={onKeyDown}
 			label={lable}
 			id={id}
 			inputRef={ref}

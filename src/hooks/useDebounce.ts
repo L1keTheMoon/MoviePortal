@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useDebounce(value: string, delay: number = 1000) {
+function useDebounce(value: string, delay: number | null = 1000) {
 	const [debouncedValue, setDebouncedValue] = useState(value);
 
 	useEffect(
@@ -10,6 +10,9 @@ function useDebounce(value: string, delay: number = 1000) {
 				timeout = setTimeout(() => {
 					setDebouncedValue(value);
 				}, delay);
+			}
+			if (delay === null) {
+				clearTimeout(timeout);
 			}
 			return () => {
 				clearTimeout(timeout);

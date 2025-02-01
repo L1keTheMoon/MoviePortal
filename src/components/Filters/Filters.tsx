@@ -1,20 +1,20 @@
 import { Typography, TextField, Button } from '@mui/material';
 import { Select } from '../Select/Select';
 import { years, ratings, types } from '../../constants/constants';
-import { useGetFilterOptionsQuery } from '../../api/api';
-import { FiltersType } from '../../types/types';
+import { FilterParams, FiltersType } from '../../types/types';
 import styles from './Filters.module.css';
 
 interface FiltersProps {
 	handleChange: (fieldName: string, value: string | number) => void,
 	resetFilters: () => void,
 	search: () => void,
-	filters: FiltersType
+	filters: FiltersType,
+	isSuccess: boolean,
+	genres: FilterParams[],
+	countries: FilterParams[]
 }
 
-export function Filters({ handleChange, resetFilters, search, filters }: FiltersProps) {
-	const { data, isSuccess } = useGetFilterOptionsQuery('');
-
+export function Filters({ handleChange, resetFilters, search, filters, isSuccess, genres, countries }: FiltersProps) {
 	return (
 		<form className={styles.form}>
 			<div className={styles.group}>
@@ -38,7 +38,7 @@ export function Filters({ handleChange, resetFilters, search, filters }: Filters
 				/>
 				<Select
 					value={filters.countries}
-					variants={isSuccess && data.countries}
+					variants={isSuccess && countries}
 					variantName='country'
 					handleChange={handleChange}
 					name='countries'
@@ -47,7 +47,7 @@ export function Filters({ handleChange, resetFilters, search, filters }: Filters
 				/>
 				<Select
 					value={filters.genres}
-					variants={isSuccess && data.genres}
+					variants={isSuccess && genres}
 					variantName='genre'
 					handleChange={handleChange}
 					name='genres'

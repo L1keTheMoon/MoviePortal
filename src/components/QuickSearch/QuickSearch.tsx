@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, CircularProgress, IconButton, TextField } from '@mui/material';
 import useDebounce from '../../hooks/useDebounce';
 import { useGetMoviesQuickQuery } from '../../api/api';
 import { Link } from 'react-router';
@@ -8,15 +8,22 @@ import styles from './QuickSearch.module.css';
 
 export default function QuickSearch() {
 	const [value, setValue] = useState('');
+	const [querry, setQuerry] = useState('');
 	const [skip, setSkip] = useState(true);
 	const debouncedValue = useDebounce(value);
-	const { data, isFetching, isSuccess, isError } = useGetMoviesQuickQuery(debouncedValue, { skip });
+	const { data, isFetching, isSuccess, isError } = useGetMoviesQuickQuery(querry, { skip });
 
 	useEffect(() => {
 		if (debouncedValue) {
-			setSkip(false);
+			startQuerry(debouncedValue);
 		}
 	}, [debouncedValue]);
+
+	function startQuerry(params: string) {
+		setSkip(false);
+		setQuerry(params);
+		setValue('');
+	}
 
 	return (
 		<Autocomplete
@@ -25,12 +32,17 @@ export default function QuickSearch() {
 			onInputChange={(event, newInputValue) => {
 				setValue(newInputValue);
 			}}
+			inputValue={value}
+			onKeyDown={(event) => {
+				if (event.key === 'Enter') {
+					startQuerry(value);
+				}
+			}}
 			sx={{ width: 400 }}
 			style={{ backgroundColor: 'var(--background)' }}
 			options={data?.films || []}
 			getOptionLabel={(option) => value}
 			renderOption={(props, option) => {
-
 				return (
 					<li {...props} style={{ padding: '0' }} key={option.kinopoiskId}>
 						<Link
@@ -62,9 +74,13 @@ export default function QuickSearch() {
 							input: {
 								...params.InputProps,
 								endAdornment: (
-									isFetching ? <CircularProgress color="inherit" size={30} /> : <Search color="inherit" fontSize='large' />
+									isFetching ? <CircularProgress color="inherit" size={30} />
+										:
+										<IconButton sx={{ p: 0.5 }} onClick={() => startQuerry(value)}>
+											<Search color="inherit" fontSize='large' />
+										</IconButton>
 								),
-								style: { fontSize: '20px', padding: '6px' }
+								style: { fontSize: '20px', padding: '6px' },
 							},
 						}}
 					/>

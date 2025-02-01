@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { MovieSearchRequest, MovieFull, FilterParams, MovieQuickSearchRequest } from '../types/types';
-import { apiKey } from '../../apiKey.ts';
+import { apiKey } from '../apiKey';
 
 export const kinopoiskApi = createApi({
 	reducerPath: 'movies',

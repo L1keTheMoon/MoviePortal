@@ -7,6 +7,7 @@ import { setFilters, resetFilters } from '../../store/filtersSlice';
 import { changePage } from '../../store/pageSlice';
 import MovieList from '../MovieList/MovieList';
 import { useGetMoviesQuery } from '../../api/api';
+import { useGetFilterOptionsQuery } from '../../api/api';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import styles from './AdvancedSearch.module.css';
 
@@ -15,6 +16,7 @@ export default function AdvancedSearch() {
 	const page = useAppSelector(state => state.page);
 	const [queryString, setQueryString] = useState(makeQuerryString);
 	const { data, isFetching, isError } = useGetMoviesQuery(queryString);
+	const fildersData = useGetFilterOptionsQuery('');
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -53,7 +55,15 @@ export default function AdvancedSearch() {
 		<>
 			<Typography component="h2" sx={{ fontSize: 48, fontWeight: 700, mb: 1 }}>Расширенный поиск</Typography>
 			<div className={styles.search}>
-				<Filters filters={filters} handleChange={handleFiltersChange} search={search} resetFilters={() => dispatch(resetFilters(''))} />
+				<Filters
+					filters={filters}
+					handleChange={handleFiltersChange}
+					search={search}
+					resetFilters={() => dispatch(resetFilters(''))}
+					isSuccess={fildersData.isSuccess}
+					countries={fildersData.data?.genres}
+					genres={fildersData.data?.genres}
+				/>
 				<Divider orientation="vertical" flexItem />
 				<div style={{ flexGrow: 1 }}>
 					<div style={{ display: 'flex', alignItems: 'center' }}>

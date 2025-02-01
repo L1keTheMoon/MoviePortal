@@ -1,20 +1,20 @@
-import { useRef, useState } from 'react';
+import { KeyboardEvent, useRef, useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import PasswordInput from '../PasswordInput/PasswordInput';
 import { useLocation, useNavigate } from 'react-router';
 import { ActionCreatorWithOptionalPayload } from '@reduxjs/toolkit';
 import { UserData } from '../../types/types';
 import { useAppDispatch } from '../../hooks/useStore';
-import styles from './LoginOrRegisterForm.module.css';
+import styles from './LoginForm.module.css';
 
 const defaultErrorState = { status: false, text: '' };
 
-interface LoginOrRegisterFormProps {
+interface LoginFormProps {
 	register?: boolean,
-	enterHandler: ActionCreatorWithOptionalPayload<UserData>
+	authorizationHandler: ActionCreatorWithOptionalPayload<UserData>
 }
 
-export default function LoginOrRegisterForm({ register = false, enterHandler }: LoginOrRegisterFormProps) {
+export default function LoginForm({ register = false, authorizationHandler }: LoginFormProps) {
 	const loginRef = useRef(null);
 	const passwordRef = useRef(null);
 	const password2Ref = useRef(null);
@@ -30,6 +30,11 @@ export default function LoginOrRegisterForm({ register = false, enterHandler }: 
 
 	function handleChangePassword() {
 		if (passwordError.status) setPasswordError(defaultErrorState);
+	}
+
+	function handleEnter(event: KeyboardEvent<HTMLDivElement>) {
+		console.log(event);
+		if (event.key === 'Enter') validate();
 	}
 
 	function validate() {
@@ -54,7 +59,7 @@ export default function LoginOrRegisterForm({ register = false, enterHandler }: 
 		};
 		if (valid) {
 			try {
-				dispatch(enterHandler({ login, password }));
+				dispatch(authorizationHandler({ login, password }));
 			} catch (error) {
 				console.log(error.message);
 				setLoginError({ status: true, text: 'Неверный логин или пароль' });
@@ -77,6 +82,7 @@ export default function LoginOrRegisterForm({ register = false, enterHandler }: 
 				error={loginError.status}
 				helperText={loginError.text}
 				onChange={handleChangeLogin}
+				onKeyDown={handleEnter}
 			/>
 			<PasswordInput
 				ref={passwordRef}
@@ -85,6 +91,7 @@ export default function LoginOrRegisterForm({ register = false, enterHandler }: 
 				error={passwordError.status}
 				helperText={passwordError.text || (register && 'Пароль должен содержать как минимум 8 символов включая 1 букву и 1 цифру')}
 				onChange={handleChangePassword}
+				onKeyDown={handleEnter}
 			/>
 			{register &&
 				<PasswordInput
@@ -94,6 +101,7 @@ export default function LoginOrRegisterForm({ register = false, enterHandler }: 
 					error={passwordError.status}
 					helperText={passwordError.text}
 					onChange={handleChangePassword}
+					onKeyDown={handleEnter}
 				/>}
 			<Button
 				variant='contained'

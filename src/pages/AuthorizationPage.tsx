@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Box, Tabs, Tab } from '@mui/material';
 import TabPanel from '../components/TabPanel/TabPanel';
-import LoginOrRegisterForm from '../components/LoginOrRegisterForm/LoginOrRegisterForm';
+import LoginForm from '../components/LoginForm/LoginForm';
 import { useLocation, useNavigate } from 'react-router';
 import { createUser, logIn } from '../store/userSlice';
 import { useAppSelector } from '../hooks/useStore';
@@ -31,10 +31,10 @@ export default function AuthorizationPage() {
 				</Tabs>
 			</Box>
 			<TabPanel value={value} index={0}>
-				<LoginOrRegisterForm enterHandler={logIn} />
+				<LoginForm authorizationHandler={logIn} />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				<LoginOrRegisterForm register enterHandler={createUser} />
+				<LoginForm register authorizationHandler={createUser} />
 			</TabPanel>
 		</div>
 	)
