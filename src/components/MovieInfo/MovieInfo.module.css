@@ -1,6 +1,7 @@
 .container {
 	display: flex;
 	gap: 30px;
+	margin-bottom: 20px;
 }
 
 .poster-wrapper {
@@ -43,10 +44,12 @@
 	border: none;
 	color: var(--fontcolor);
 	padding: 8px;
+	vertical-align: top;
 }
 
 .info-wrapper th {
 	color: var(--fontcolor-gray);
+	min-width: 320px;
 }
 
 .limit {

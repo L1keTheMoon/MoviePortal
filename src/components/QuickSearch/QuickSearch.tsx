@@ -22,12 +22,12 @@ export default function QuickSearch() {
 	function startQuerry(params: string) {
 		setSkip(false);
 		setQuerry(params);
-		setValue('');
 	}
 
 	return (
 		<Autocomplete
 			forcePopupIcon={false}
+			clearOnBlur={false}
 			value={null}
 			onInputChange={(event, newInputValue) => {
 				setValue(newInputValue);

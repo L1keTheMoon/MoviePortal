@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieSearchRequest, MovieFull, FilterParams, MovieQuickSearchRequest } from '../types/types';
+import { MovieSearchRequest, MovieFull, FilterParams, MovieQuickSearchRequest, Staff } from '../types/types';
 import { apiKey } from '../apiKey';
 
 export const kinopoiskApi = createApi({
@@ -20,6 +20,12 @@ export const kinopoiskApi = createApi({
 		}),
 		getMoviesQuick: builder.query<MovieQuickSearchRequest, string>({
 			query: (keyword: string) => `v2.1/films/search-by-keyword?keyword=${keyword}&page=1`,
+		}),
+		getStraff: builder.query<Staff[], string>({
+			query: (id: string) => 'v1/staff?filmId=' + id,
+		}),
+		getPremieres: builder.query<MovieSearchRequest, string>({
+			query: (params: string) => `v2.2/films/premieres?` + params,
 		}),
 		getFilterOptions: builder.query<{ genres: FilterParams[], countries: FilterParams[] }, string>({
 			query: () => 'v2.2/films/filters',
@@ -42,4 +48,11 @@ export const kinopoiskApi = createApi({
 	}),
 });
 
-export const { useGetMovieQuery, useGetMoviesQuery, useGetFilterOptionsQuery, useGetMoviesQuickQuery } = kinopoiskApi;
+export const {
+	useGetMovieQuery,
+	useGetMoviesQuery,
+	useGetFilterOptionsQuery,
+	useGetMoviesQuickQuery,
+	useGetStraffQuery,
+	useGetPremieresQuery
+} = kinopoiskApi;

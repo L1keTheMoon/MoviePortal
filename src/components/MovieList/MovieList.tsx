@@ -27,13 +27,27 @@ export default function MovieList({ totalPages, page, handlePageChange, list, re
 									<img src={e.posterUrl} alt="poster" />
 								</div>
 								<div className={styles.info}>
-									<Typography
-										variant='h3'
-										sx={{ fontSize: 36 }}
-										style={{ textDecoration: 'underline' }}
-									>
-										{e.nameRu || e.nameOriginal}
-									</Typography>
+									<div>
+										<Typography
+											variant='h3'
+											sx={{ fontSize: 36 }}
+											style={{ textDecoration: 'underline' }}
+										>
+											{e.nameRu || e.nameOriginal}
+										</Typography>
+										{removeButton &&
+											<IconButton
+												title='Удалить из избранного'
+												onClick={(event) => {
+													event.preventDefault();
+													handleRemove(e.kinopoiskId);
+												}}
+											>
+												<Delete
+													fontSize='large'
+												/>
+											</IconButton>}
+									</div>
 									<Typography
 										variant='h4'
 										sx={{ fontSize: 28 }}
@@ -69,16 +83,6 @@ export default function MovieList({ totalPages, page, handlePageChange, list, re
 									</Typography>
 								</div>
 							</Link>
-							{removeButton &&
-								<IconButton
-									title='Удалить из избранного'
-									sx={{ mt: 1.5 }}
-									onClick={() => { handleRemove(e.kinopoiskId) }}
-								>
-									<Delete
-										fontSize='large'
-									/>
-								</IconButton>}
 						</li>
 					)
 				})}

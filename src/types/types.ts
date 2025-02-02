@@ -66,6 +66,16 @@ export interface MovieShortData {
 	posterUrlPreview?: string
 }
 
+export interface Staff {
+	staffId: number
+	nameRu: string
+	nameEn: string
+	description: string | null
+	posterUrl: string
+	professionText: string
+	professionKey: string
+}
+
 export interface Country {
 	country: string
 }

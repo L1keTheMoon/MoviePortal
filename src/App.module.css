@@ -2,7 +2,7 @@
 	max-width: 1600px;
 	width: 100%;
 	flex: 1 0 auto;
-	margin: 40px auto 0;
+	margin: 30px auto 0;
 	padding: 0 15px;
 	display: flex;
 	flex-direction: column;
@@ -11,12 +11,10 @@
 
 .container input[type="text"]~fieldset,
 .container input[type="password"]~fieldset {
-	/* border-color: var(--fontcolor); */
 	font-size: 20px;
 }
 
 .container label,
 .container input {
-	/*  color: var(--fontcolor); */
 	font-size: 20px;
 }

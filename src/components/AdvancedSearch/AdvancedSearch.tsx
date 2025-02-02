@@ -61,7 +61,7 @@ export default function AdvancedSearch() {
 					search={search}
 					resetFilters={() => dispatch(resetFilters(''))}
 					isSuccess={fildersData.isSuccess}
-					countries={fildersData.data?.genres}
+					countries={fildersData.data?.countries}
 					genres={fildersData.data?.genres}
 				/>
 				<Divider orientation="vertical" flexItem />

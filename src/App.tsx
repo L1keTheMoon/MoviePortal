@@ -16,7 +16,7 @@ function App() {
 
 	return (
 		<ErrorBoundary>
-			<Suspense fallback={<CircularProgress size={500} style={{ margin: '50px auto' }} />}>
+			<Suspense fallback={<CircularProgress size={400} style={{ margin: '50px auto' }} />}>
 				<Header />
 				<div className={styles.container}>
 					<Routes>
