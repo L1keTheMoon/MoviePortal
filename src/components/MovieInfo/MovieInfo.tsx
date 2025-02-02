@@ -71,7 +71,7 @@ export default function MovieInfo({ nameRu, serial, startYear, endYear, year, ki
 					</Typography>
 					<div>
 						<IconButton
-							title='Добавить в избранное'
+							title={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
 							color="primary"
 							onClick={handleClick}
 						>
