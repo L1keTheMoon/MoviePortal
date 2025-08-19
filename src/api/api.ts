@@ -7,7 +7,7 @@ export const kinopoiskApi = createApi({
 	keepUnusedDataFor: Infinity,
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'https://kinopoiskapiunofficial.tech/api/', headers: {
-			accept: 'application/json',
+			'Content-Type': 'application/json',
 			'X-API-KEY': apiKey
 		}
 	}),
