@@ -4,12 +4,12 @@
 }
 
 .poster {
-	height: 84%;
+	height: 80%;
 	overflow: hidden;
 	border-radius: 8px;
 }
 
 .image {
 	width: 100%;
-	display: block;
+	height: 100%;
 }
